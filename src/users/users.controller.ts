@@ -4,8 +4,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestj
 export class UsersController {
 
   @Get()  // GET /users
-    findAll(@Query('role')  role?: 'INTERN' | 'ENGINEER' | 'ADMIN'){
-      return []
+    findAll(@Query('role') role?: 'INTERN' | 'ENGINEER' | 'ADMIN', @Query('age') age?:number ){
+      return [role, age]
     }
 
     @Get(':id')  // GET /users/:id
