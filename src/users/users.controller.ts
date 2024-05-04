@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  ParseIntPipe
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -23,10 +24,8 @@ export class UsersController {
   }
 
   @Get(':id') // GET /users/:id
-  findOne(@Param('id') id: string) {
-    // Convert id to number
-    // return this.usersService.findOne(Number(id)) // Method 1
-    return this.usersService.findOne(+id); // Method 2
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOne(id); // Method 2
   }
 
   @Post() // POST /users
@@ -43,18 +42,16 @@ export class UsersController {
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id: string, @Body() userUpdate: {
+  update(@Param('id', ParseIntPipe) id: number, @Body() userUpdate: {
     name?: string;
     email?: string;
     role?: 'INTERN' | 'ENGINEER' | 'ADMIN';
   }) {
-    return this.usersService.update(+id, userUpdate)
+    return this.usersService.update(id, userUpdate)
   }
 
   @Delete(':id') // DELETE /users/:id
-  deleteOne(@Param('id') id: string) {
-    // Convert id to number because it is a string
-    // return this.usersService.findOne(Number(id)) // Method 1
-    return this.usersService.delete(+id);
+  deleteOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.delete(id);
   }
 }
