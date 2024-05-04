@@ -30,19 +30,32 @@ export class UsersController {
   }
 
   @Post() // POST /users
-  create(@Body() user: {}) {
-    return user;
+  create(
+    @Body()
+    user: {
+      id: number;
+      name: string;
+      email: string;
+      role: 'INTERN' | 'ENGINEER' | 'ADMIN';
+    },
+  ) {
+    return this.usersService.create(user);
+    // return user;
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id: string, @Body() userUpdate: {}) {
-    return { id, ...userUpdate };
+  update(@Param('id') id: string, @Body() userUpdate: {
+    name?: string;
+    email?: string;
+    role?: 'INTERN' | 'ENGINEER' | 'ADMIN';
+  }) {
+    return this.usersService.update(+id, userUpdate)
   }
 
   @Delete(':id') // DELETE /users/:id
   deleteOne(@Param('id') id: string) {
     // Convert id to number because it is a string
     // return this.usersService.findOne(Number(id)) // Method 1
-    return this.usersService.delete(+id)
+    return this.usersService.delete(+id);
   }
 }
