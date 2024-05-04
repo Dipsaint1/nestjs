@@ -1,5 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+interface User {
+  id: number
+  name: string
+  age: number
 
+}
 @Controller('users') // /users 
 export class UsersController {
 
