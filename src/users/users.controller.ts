@@ -39,6 +39,8 @@ export class UsersController {
   }
 
   @Patch(':id') // PATCH    /users/:id
+  // ValidationPipe ensures that the body parameters are validated 
+  // against the Dto's and get a message if there is an error
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
